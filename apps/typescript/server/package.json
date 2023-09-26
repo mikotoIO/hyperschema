@@ -1,0 +1,14 @@
+{
+  "name": "server",
+  "packageManager": "yarn@3.4.1",
+  "devDependencies": {
+    "typescript": "^5.2.2"
+  },
+  "dependencies": {
+    "yaml": "^2.3.2",
+    "zod": "^3.22.2"
+  },
+  "scripts": {
+    "start": "tsc && node dist/index.js"
+  }
+}
