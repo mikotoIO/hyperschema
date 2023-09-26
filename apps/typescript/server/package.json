@@ -9,6 +9,6 @@
     "zod": "^3.22.2"
   },
   "scripts": {
-    "start": "tsc && node dist/index.js"
+    "start": "tsc --build && node dist/index.js"
   }
 }

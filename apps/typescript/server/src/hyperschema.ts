@@ -1,12 +1,5 @@
 import { z } from 'zod';
 
-function document<T extends z.ZodType>(docs: string, z: T): T {
-  // brand the type
-  return Object.assign({
-    __docs: docs,
-  });
-}
-
 export const Pet = z.object({
   name: z.string(),
 });
