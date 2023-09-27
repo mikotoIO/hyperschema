@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "json-stringify-pretty-compact": "3.0.0",
+    "prettier": "^3.0.3",
     "socket.io": "^4.7.2"
   }
 }

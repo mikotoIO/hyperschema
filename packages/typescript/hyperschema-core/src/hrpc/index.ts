@@ -3,7 +3,18 @@ import { ZodType } from 'zod';
 import { HyperRPCEvent } from './event';
 import { FnBuilder, HyperRPCFn } from './fn';
 
-type ServiceFields = HyperRPCFn<any, any, any> | HyperRPCEvent<any>;
+type HyperRPCBaseFn = HyperRPCFn<any, any, any>;
+type HyperRPCBaseEvent = HyperRPCEvent<any>;
+type ServiceFields = HyperRPCService | HyperRPCBaseFn | HyperRPCBaseEvent;
+
+export class HyperRPCService {
+  constructor(
+    public hyperRPC: HyperRPC,
+    public subservices: Record<string, HyperRPCService>,
+    public functions: Record<string, HyperRPCBaseFn>,
+    public events: Record<string, HyperRPCBaseEvent>,
+  ) {}
+}
 
 export class HyperRPC<Context = {}> {
   contextFn: () => Promise<Context> = async () => ({}) as any;
@@ -23,18 +34,21 @@ export class HyperRPC<Context = {}> {
   event<T extends ZodType>(event: T) {
     return new HyperRPCEvent(event);
   }
-}
 
-export class HyperRPCService {
-  constructor(public functions: Record<string, HyperRPCFn<any, any, any>>) {}
-}
+  service(handlers: { [key: string]: ServiceFields }) {
+    const subservices: Record<string, HyperRPCService> = {};
+    const functions: Record<string, HyperRPCBaseFn> = {};
+    const events: Record<string, HyperRPCBaseEvent> = {};
 
-export function defineService(handlers: { [key: string]: ServiceFields }) {
-  const functions: Record<string, HyperRPCFn<any, any, any>> = {};
-  Object.entries(handlers).forEach(([name, handler]) => {
-    if (handler instanceof HyperRPCFn) {
-      functions[name] = handler;
-    }
-  });
-  return new HyperRPCService(functions);
+    Object.entries(handlers).forEach(([name, p]) => {
+      if (p instanceof HyperRPCService) {
+        subservices[name] = p;
+      } else if (p instanceof HyperRPCFn) {
+        functions[name] = p;
+      } else if (p instanceof HyperRPCEvent) {
+        events[name] = p;
+      }
+    });
+    return new HyperRPCService(this, subservices, functions, events);
+  }
 }

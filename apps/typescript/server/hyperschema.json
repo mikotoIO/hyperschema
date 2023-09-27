@@ -20,9 +20,24 @@
   ],
   "services": [
     {
-      "name": "mainService",
+      "name": "ChildService",
+      "service": {"subservices": [], "functions": [], "events": []}
+    },
+    {
+      "name": "MainService",
       "service": {
+        "subservices": [{"name": "child", "service": "ChildService"}],
         "functions": [
+          {
+            "name": "add",
+            "fn": {
+              "input": [
+                {"name": "x", "type": "float64"},
+                {"name": "y", "type": "float64"}
+              ],
+              "output": "float64"
+            }
+          },
           {
             "name": "hello",
             "fn": {

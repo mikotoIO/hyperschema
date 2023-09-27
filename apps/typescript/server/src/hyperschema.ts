@@ -1,4 +1,4 @@
-import { HyperRPC, defineService } from '@hyperschema/core';
+import { HyperRPC } from '@hyperschema/core';
 import { z } from 'zod';
 
 export const Pet = z.object({
@@ -16,14 +16,24 @@ export const Person = z.object({
 type Person = z.infer<typeof Person>;
 
 // rpc code
-const hrpc = new HyperRPC().context(async () => ({
+const h = new HyperRPC().context(async () => ({
   username: 'cactus',
 }));
 
-export const mainService = defineService({
-  hello: hrpc.fn({ person: Person }, z.string()).do(async ({ person }) => {
+export const ChildService = h.service({});
+
+export const MainService = h.service({
+  child: ChildService,
+
+  add: h
+    .fn({ x: z.number(), y: z.number() }, z.number())
+    .do(async ({ x, y }) => {
+      return x + y;
+    }),
+
+  hello: h.fn({ person: Person }, z.string()).do(async ({ person }) => {
     return `Hello, ${person.name}!`;
   }),
 
-  onTick: hrpc.event(z.string()),
+  onTick: h.event(z.string()),
 });

@@ -632,6 +632,7 @@ __metadata:
   dependencies:
     "@types/node": ^20.7.0
     json-stringify-pretty-compact: 3.0.0
+    prettier: ^3.0.3
     socket.io: ^4.7.2
     typescript: ^5.2.2
   peerDependencies:
@@ -2608,6 +2609,12 @@ __metadata:
   checksum: 9c7a74a2827f9294c009266c82031030eae811ca87b0da3dceb8d6071b9bde22c9f3daef0469c3c533cc67a97d8a167cd9fc0389350e5f415f61a79b171ded16
   languageName: node
   linkType: hard
+
+"hyperschema-client@workspace:packages/typescript/hyperschema-client":
+  version: 0.0.0-use.local
+  resolution: "hyperschema-client@workspace:packages/typescript/hyperschema-client"
+  languageName: unknown
+  linkType: soft
 
 "hyperschema@workspace:.":
   version: 0.0.0-use.local

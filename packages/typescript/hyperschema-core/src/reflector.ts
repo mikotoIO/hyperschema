@@ -20,6 +20,7 @@ export type HSFunction = {
 export type HSService = {
   functions: { name: string; fn: HSFunction }[];
   events: { name: string; event: HSType }[];
+  subservices: { name: string; service: string }[];
 };
 
 export type Hyperschema = {
@@ -37,9 +38,12 @@ export function buildHyperschema(schema: any) {
   // filter out just zod objects, put into a set
   // used for deduplication checks
   const zodReverseMappings = new Map<z.ZodType, string>();
+  const serviceReverseMappings = new Map<HyperRPCService, string>();
   Object.entries(schema).forEach(([k, v]) => {
     if (v instanceof z.ZodType) {
       zodReverseMappings.set(v, k);
+    } else if (v instanceof HyperRPCService) {
+      serviceReverseMappings.set(v, k);
     }
   });
 
@@ -97,24 +101,26 @@ export function buildHyperschema(schema: any) {
         },
       });
     } else if (v instanceof HyperRPCService) {
-      const functions: { name: string; fn: HSFunction }[] = Object.entries(
-        v.functions,
-      ).map(([k, v]) => {
-        return {
-          name: k,
-          fn: {
-            input: Object.entries(v.input).map(([k, v]) => ({
-              name: k,
-              type: computeType(v),
-            })),
-            output: computeType(v.output),
-          },
-        };
-      });
       hyperschema.services.push({
         name: k,
         service: {
-          functions,
+          subservices: Object.entries(v.subservices).map(([name, v]) => ({
+            name,
+            service: serviceReverseMappings.get(v)!,
+          })),
+
+          functions: Object.entries(v.functions).map(([k, v]) => {
+            return {
+              name: k,
+              fn: {
+                input: Object.entries(v.input).map(([k, v]) => ({
+                  name: k,
+                  type: computeType(v),
+                })),
+                output: computeType(v.output),
+              },
+            };
+          }),
           events: [],
         },
       });

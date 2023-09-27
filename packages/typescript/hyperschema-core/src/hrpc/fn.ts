@@ -32,9 +32,18 @@ export class HyperRPCFn<
   O extends ZodType,
   C = {},
 > {
+  private inputValidator: ZodType<InferInput<I>>;
+
   constructor(
     public input: I,
     public output: O,
     public fn: SchemaFn<I, O, C>,
-  ) {}
+  ) {
+    this.inputValidator = z.object(input);
+  }
+
+  async call(ctx: C, args: unknown): Promise<z.infer<O>> {
+    const parsedArgs = this.inputValidator.parse(args);
+    return await this.fn(Object.assign(parsedArgs, ctx));
+  }
 }
