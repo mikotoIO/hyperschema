@@ -1,6 +1,5 @@
 import * as fs from 'fs/promises';
 import stringify from 'json-stringify-pretty-compact';
-import path from 'path';
 import { z } from 'zod';
 
 import { HyperRPCService } from './hrpc';

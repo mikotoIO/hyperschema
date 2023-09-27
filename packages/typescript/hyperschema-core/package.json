@@ -12,6 +12,7 @@
     "zod": "*"
   },
   "dependencies": {
-    "json-stringify-pretty-compact": "3.0.0"
+    "json-stringify-pretty-compact": "3.0.0",
+    "socket.io": "^4.7.2"
   }
 }
