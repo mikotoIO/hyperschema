@@ -1,0 +1,38 @@
+{
+  "types": [
+    {
+      "name": "Pet",
+      "type": {"kind": "struct", "fields": [{"name": "name", "type": "string"}]}
+    },
+    {
+      "name": "Person",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {"name": "name", "type": "string"},
+          {"name": "age", "type": "int32"},
+          {"name": "isAwesome", "type": "bool"},
+          {"name": "avatar", "type": {"type": "optional", "param": ["string"]}},
+          {"name": "pet", "type": {"type": "array", "param": ["Pet"]}}
+        ]
+      }
+    }
+  ],
+  "services": [
+    {
+      "name": "mainService",
+      "service": {
+        "functions": [
+          {
+            "name": "hello",
+            "fn": {
+              "input": [{"name": "person", "type": "Person"}],
+              "output": "string"
+            }
+          }
+        ],
+        "events": []
+      }
+    }
+  ]
+}

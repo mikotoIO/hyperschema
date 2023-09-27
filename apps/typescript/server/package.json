@@ -2,9 +2,11 @@
   "name": "server",
   "packageManager": "yarn@3.4.1",
   "devDependencies": {
+    "@types/node": "^20.7.0",
     "typescript": "^5.2.2"
   },
   "dependencies": {
+    "@hyperschema/core": "*",
     "yaml": "^2.3.2",
     "zod": "^3.22.2"
   },

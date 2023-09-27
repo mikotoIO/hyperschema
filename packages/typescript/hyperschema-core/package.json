@@ -5,9 +5,13 @@
   "packageManager": "yarn@3.4.1",
   "version": "0.0.1",
   "devDependencies": {
+    "@types/node": "^20.7.0",
     "typescript": "^5.2.2"
   },
   "peerDependencies": {
     "zod": "*"
+  },
+  "dependencies": {
+    "json-stringify-pretty-compact": "3.0.0"
   }
 }

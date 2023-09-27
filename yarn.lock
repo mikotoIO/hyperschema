@@ -231,10 +231,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@hyperschema/core@workspace:packages/typescript/hyperschema-core":
+"@hyperschema/core@*, @hyperschema/core@workspace:packages/typescript/hyperschema-core":
   version: 0.0.0-use.local
   resolution: "@hyperschema/core@workspace:packages/typescript/hyperschema-core"
   dependencies:
+    "@types/node": ^20.7.0
+    json-stringify-pretty-compact: 3.0.0
     typescript: ^5.2.2
   peerDependencies:
     zod: "*"
@@ -327,6 +329,13 @@ __metadata:
     "@vue/compiler-sfc":
       optional: true
   checksum: 2081ba9f1a2d33b9a3eeadeb3e713d404ee3d1a5cff3b20a23d94d6d915f0a8ff549616c1e77cd728f1b33733e0d7ab8e4c2512f344a612d81ece40025351160
+  languageName: node
+  linkType: hard
+
+"@types/node@npm:^20.7.0":
+  version: 20.7.0
+  resolution: "@types/node@npm:20.7.0"
+  checksum: 1b2919925c213f4d2039ada7a8354c998e144f7291db8d719ef58ea9924ab636c113690073b0ec3b82ba62907385f7e0f51e9d1583c1a818776daa5156d3a590
   languageName: node
   linkType: hard
 
@@ -1335,6 +1344,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"json-stringify-pretty-compact@npm:3.0.0":
+  version: 3.0.0
+  resolution: "json-stringify-pretty-compact@npm:3.0.0"
+  checksum: 01ab5c5c8260299414868d96db97f53aef93c290fe469edd9a1363818e795006e01c952fa2fd7b47cbbab506d5768998eccc25e1da4fa2ccfebd1788c6098791
+  languageName: node
+  linkType: hard
+
 "keyv@npm:^4.5.3":
   version: 4.5.3
   resolution: "keyv@npm:4.5.3"
@@ -1619,6 +1635,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "server@workspace:apps/typescript/server"
   dependencies:
+    "@hyperschema/core": "*"
+    "@types/node": ^20.7.0
     typescript: ^5.2.2
     yaml: ^2.3.2
     zod: ^3.22.2

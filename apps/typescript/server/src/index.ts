@@ -1,6 +1,8 @@
-import { buildHyperschema } from '@hyperschema/core';
-import yaml from 'yaml';
+import { writeHyperschema } from '@hyperschema/core';
+import path from 'path';
 
 import * as hs from './hyperschema';
 
-console.log(yaml.stringify(buildHyperschema(hs)));
+writeHyperschema(path.join(__dirname, '../hyperschema.json'), hs).then(() => {
+  console.log('built hyperschema');
+});
