@@ -1,10 +1,16 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { SocketIOClientTransport } from '@hyperschema/client';
+import { useState } from 'react';
+
+import './App.css';
+import reactLogo from './assets/react.svg';
+import viteLogo from '/vite.svg';
+
+const sc = new SocketIOClientTransport('http://localhost:3100');
+(globalThis as any).client = sc;
+// console.log(sc);
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useState(0);
 
   return (
     <>
@@ -21,15 +27,19 @@ function App() {
         <button onClick={() => setCount((count) => count + 1)}>
           count is {count}
         </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
+        <button
+          onClick={() => {
+            sc.call('add', { x: 12, y: 34 }).then((r) => console.log(r));
+          }}
+        >
+          test things
+        </button>
       </div>
       <p className="read-the-docs">
         Click on the Vite and React logos to learn more
       </p>
     </>
-  )
+  );
 }
 
-export default App
+export default App;

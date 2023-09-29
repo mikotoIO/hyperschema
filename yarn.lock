@@ -1651,6 +1651,19 @@ __metadata:
   languageName: node
   linkType: hard
 
+"engine.io-client@npm:~6.5.2":
+  version: 6.5.2
+  resolution: "engine.io-client@npm:6.5.2"
+  dependencies:
+    "@socket.io/component-emitter": ~3.1.0
+    debug: ~4.3.1
+    engine.io-parser: ~5.2.1
+    ws: ~8.11.0
+    xmlhttprequest-ssl: ~2.0.0
+  checksum: f93e09b842535a3f3e31b708cd30085b9e08a7a7ebf28f453e50e79e3fccf3f019474a46b41f7dc9164e3b8342c0b5d5a50a45299c1e2465d708c65140d05c92
+  languageName: node
+  linkType: hard
+
 "engine.io-parser@npm:~5.2.1":
   version: 5.2.1
   resolution: "engine.io-parser@npm:5.2.1"
@@ -2613,6 +2626,8 @@ __metadata:
 "hyperschema-client@workspace:packages/typescript/hyperschema-client":
   version: 0.0.0-use.local
   resolution: "hyperschema-client@workspace:packages/typescript/hyperschema-client"
+  dependencies:
+    socket.io-client: ^4.7.2
   languageName: unknown
   linkType: soft
 
@@ -3954,6 +3969,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"socket.io-client@npm:^4.7.2":
+  version: 4.7.2
+  resolution: "socket.io-client@npm:4.7.2"
+  dependencies:
+    "@socket.io/component-emitter": ~3.1.0
+    debug: ~4.3.2
+    engine.io-client: ~6.5.2
+    socket.io-parser: ~4.2.4
+  checksum: 8f0ab6b623e014d889bae0cd847ef7826658e8f131bd9367ee5ae4404bb52a6d7b1755b8fbe8e68799b60e92149370a732b381f913b155e40094facb135cd088
+  languageName: node
+  linkType: hard
+
 "socket.io-parser@npm:~4.2.4":
   version: 4.2.4
   resolution: "socket.io-parser@npm:4.2.4"
@@ -4556,6 +4583,13 @@ __metadata:
     utf-8-validate:
       optional: true
   checksum: 316b33aba32f317cd217df66dbfc5b281a2f09ff36815de222bc859e3424d83766d9eb2bd4d667de658b6ab7be151f258318fb1da812416b30be13103e5b5c67
+  languageName: node
+  linkType: hard
+
+"xmlhttprequest-ssl@npm:~2.0.0":
+  version: 2.0.0
+  resolution: "xmlhttprequest-ssl@npm:2.0.0"
+  checksum: 1e98df67f004fec15754392a131343ea92e6ab5ac4d77e842378c5c4e4fd5b6a9134b169d96842cc19422d77b1606b8df84a5685562b3b698cb68441636f827e
   languageName: node
   linkType: hard
 

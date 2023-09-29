@@ -27,7 +27,9 @@ export const MainService = h.service({
 
   add: h
     .fn({ x: z.number(), y: z.number() }, z.number())
-    .do(async ({ x, y }) => {
+    .do(async ({ x, y, $meta }) => {
+      console.log($meta);
+      // console.log($meta.connId);
       return x + y;
     }),
 

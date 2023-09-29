@@ -1,4 +1,9 @@
 {
   "name": "hyperschema-client",
-  "packageManager": "yarn@3.4.1"
+  "packageManager": "yarn@3.4.1",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "dependencies": {
+    "socket.io-client": "^4.7.2"
+  }
 }

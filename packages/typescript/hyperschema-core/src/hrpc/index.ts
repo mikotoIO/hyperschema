@@ -3,23 +3,27 @@ import { ZodType } from 'zod';
 import { HyperRPCEvent } from './event';
 import { FnBuilder, HyperRPCFn } from './fn';
 
+export type MetaObject = {
+  connId: string;
+};
+
 type HyperRPCBaseFn = HyperRPCFn<any, any, any>;
 type HyperRPCBaseEvent = HyperRPCEvent<any>;
 type ServiceFields = HyperRPCService | HyperRPCBaseFn | HyperRPCBaseEvent;
 
-export class HyperRPCService {
+export class HyperRPCService<Ctx = any> {
   constructor(
-    public hyperRPC: HyperRPC,
+    public hyperRPC: HyperRPC<Ctx>,
     public subservices: Record<string, HyperRPCService>,
     public functions: Record<string, HyperRPCBaseFn>,
     public events: Record<string, HyperRPCBaseEvent>,
   ) {}
 }
 
-export class HyperRPC<Context = {}> {
-  contextFn: () => Promise<Context> = async () => ({}) as any;
+export class HyperRPC<Context = { $meta: MetaObject }> {
+  contextFn: () => Context | Promise<Context> = async () => ({}) as any;
 
-  context<T>(fn: () => Promise<T>): HyperRPC<T> {
+  context<T>(fn: () => T | Promise<T>): HyperRPC<Context & T> {
     this.contextFn = fn as any;
     return this as any;
   }

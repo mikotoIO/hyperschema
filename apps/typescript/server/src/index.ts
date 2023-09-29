@@ -17,7 +17,9 @@ const io = new socketIO.Server(app.server, {
 hostHyperRPC(io, hs.MainService);
 
 (async function main() {
+  console.log('generating hyperschema...');
   await writeHyperschema(path.join(__dirname, '../hyperschema.json'), hs);
+  console.log('generated hyperschema!');
   await app.listen({
     port: 3100,
   });
