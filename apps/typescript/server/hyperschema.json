@@ -21,7 +21,22 @@
   "services": [
     {
       "name": "ChildService",
-      "service": {"subservices": [], "functions": [], "events": []}
+      "service": {
+        "subservices": [],
+        "functions": [
+          {
+            "name": "add2",
+            "fn": {
+              "input": [
+                {"name": "x", "type": "float64"},
+                {"name": "y", "type": "float64"}
+              ],
+              "output": "float64"
+            }
+          }
+        ],
+        "events": []
+      }
     },
     {
       "name": "MainService",

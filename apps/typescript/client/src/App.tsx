@@ -6,6 +6,9 @@ import reactLogo from './assets/react.svg';
 import viteLogo from '/vite.svg';
 
 const sc = new SocketIOClientTransport('http://localhost:3100');
+sc.on('onTick', (x) => {
+  console.log(x);
+});
 (globalThis as any).client = sc;
 // console.log(sc);
 

@@ -1,4 +1,4 @@
-import { HyperRPC } from '@hyperschema/core';
+import { HyperRPC, NotFoundError } from '@hyperschema/core';
 import { z } from 'zod';
 
 export const Pet = z.object({
@@ -16,26 +16,41 @@ export const Person = z.object({
 type Person = z.infer<typeof Person>;
 
 // rpc code
-const h = new HyperRPC().context(async () => ({
-  username: 'cactus',
-}));
+const h = new HyperRPC().context(async () => ({}));
 
-export const ChildService = h.service({});
-
-export const MainService = h.service({
-  child: ChildService,
-
-  add: h
+export const ChildService = h.service({
+  add2: h
     .fn({ x: z.number(), y: z.number() }, z.number())
-    .do(async ({ x, y, $meta }) => {
-      console.log($meta);
-      // console.log($meta.connId);
+    .do(async ({ x, y }) => {
       return x + y;
     }),
-
-  hello: h.fn({ person: Person }, z.string()).do(async ({ person }) => {
-    return `Hello, ${person.name}!`;
-  }),
-
-  onTick: h.event(z.string()),
 });
+
+export const MainService = h
+  .service({
+    child: ChildService,
+
+    add: h
+      .fn({ x: z.number(), y: z.number() }, z.number())
+      .do(async ({ x, y, $meta }) => {
+        throw new NotFoundError();
+        console.log($meta);
+        return x + y;
+      }),
+
+    hello: h.fn({ person: Person }, z.string()).do(async ({ person }) => {
+      return `Hello, ${person.name}!`;
+    }),
+
+    onTick: h.event(z.number()).emitter((emit, ctx) => {
+      // console.log(`setting up for ${ctx.$meta.connId}...}`);
+      // const interval = setInterval(() => {
+      //   emit(Math.random());
+      // }, 1000);
+      // return () => {
+      //   console.log(`cleaning up for ${ctx.$meta.connId}.`);
+      //   clearInterval(interval);
+      // };
+    }),
+  })
+  .root();
