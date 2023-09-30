@@ -18,6 +18,7 @@ export type HSFunction = {
 };
 
 export type HSService = {
+  path: string;
   functions: { name: string; fn: HSFunction }[];
   events: { name: string; event: HSType }[];
   subservices: { name: string; service: string }[];
@@ -104,6 +105,7 @@ export function buildHyperschema(schema: any) {
       hyperschema.services.push({
         name: k,
         service: {
+          path: v.path,
           subservices: Object.entries(v.subservices).map(([name, v]) => ({
             name,
             service: serviceReverseMappings.get(v)!,

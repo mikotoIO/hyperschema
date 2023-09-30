@@ -4,7 +4,7 @@ import { z } from "zod";
 export const Pet = z.object({
   name: z.string(),
 });
-type Pet = z.infer<typeof Pet>;
+export type Pet = z.infer<typeof Pet>;
 
 export const Person = z.object({
   name: z.string(),
@@ -13,4 +13,12 @@ export const Person = z.object({
   avatar: z.optional(z.string()),
   pet: z.array(Pet),
 });
-type Person = z.infer<typeof Person>;
+export type Person = z.infer<typeof Person>;
+
+export class ChildService {
+  readonly PATH = "child";
+}
+
+export class MainService {
+  readonly PATH = "";
+}

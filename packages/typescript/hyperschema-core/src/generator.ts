@@ -1,7 +1,13 @@
 import * as fs from 'fs/promises';
 import { format } from 'prettier';
 
-import { HSStruct, HSType, Hyperschema, buildHyperschema } from './reflector';
+import {
+  HSService,
+  HSStruct,
+  HSType,
+  Hyperschema,
+  buildHyperschema,
+} from './reflector';
 
 function generateHSType(type: HSType): string {
   if (typeof type === 'string') {
@@ -37,8 +43,14 @@ function generateStruct(obj: { name: string; type: HSStruct }) {
       .map((f) => `${f.name}: ${generateHSType(f.type)},`)
       .join('\n')}
   });
-  type ${obj.name} = z.infer<typeof ${obj.name}>;
+  export type ${obj.name} = z.infer<typeof ${obj.name}>;
   `;
+}
+
+function generateService(obj: { name: string; service: HSService }) {
+  return `export class ${obj.name} {
+    readonly PATH = '${obj.service.path}';
+  }`;
 }
 
 export async function generateTypeScriptClient(hs: Hyperschema) {
@@ -47,6 +59,8 @@ export async function generateTypeScriptClient(hs: Hyperschema) {
     import { z } from 'zod';
 
     ${hs.types.map(generateStruct).join('\n\n')}
+
+    ${hs.services.map(generateService).join('\n\n')}
   `,
     { parser: 'typescript' },
   );
