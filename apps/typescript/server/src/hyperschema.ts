@@ -21,7 +21,18 @@ const h = new HyperRPC().context(async () => ({}));
 export const ChildService = h.service({
   add2: h
     .fn({ x: z.number(), y: z.number() }, z.number())
-    .do(async ({ x, y }) => {
+    .use(async (input) => {
+      console.log('first middleware');
+      console.log(input);
+      return { ...input, answer: 42 };
+    })
+    .use(async (input) => {
+      console.log('second middleware');
+      console.log(input);
+      return { ...input, notAnswer: input.answer + 1 };
+    })
+    .do(async ({ x, y, notAnswer }) => {
+      console.log(notAnswer);
       return x + y;
     }),
 });
@@ -33,7 +44,6 @@ export const MainService = h
     add: h
       .fn({ x: z.number(), y: z.number() }, z.number())
       .do(async ({ x, y, $meta }) => {
-        throw new NotFoundError();
         console.log($meta);
         return x + y;
       }),

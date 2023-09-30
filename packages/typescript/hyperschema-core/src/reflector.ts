@@ -123,7 +123,10 @@ export function buildHyperschema(schema: any) {
               },
             };
           }),
-          events: [],
+          events: Object.entries(v.events).map(([k, v]) => ({
+            name: k,
+            event: computeType(v.eventType),
+          })),
         },
       });
     }

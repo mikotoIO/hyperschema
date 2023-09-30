@@ -82,5 +82,6 @@ export function hostHyperRPC(io: socketIO.Server, service: HyperRPCService) {
     );
 
     setupServiceEvents(socket, io, service);
+    socket.emit('ready');
   });
 }
