@@ -1,4 +1,4 @@
-import { HyperRPC, NotFoundError } from '@hyperschema/core';
+import { HyperRPC } from '@hyperschema/core';
 import { z } from 'zod';
 
 export const Pet = z.object({
