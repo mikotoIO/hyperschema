@@ -10,7 +10,7 @@ export const Person = z.object({
   name: z.string(),
   age: z.number().int(),
   isAwesome: z.boolean(),
-  avatar: z.string().optional(),
+  avatar: z.string().nullable(),
   pet: Pet.array(),
 });
 type Person = z.infer<typeof Person>;

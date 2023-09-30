@@ -1,6 +1,11 @@
 import { Socket, io } from 'socket.io-client';
 
-export class SocketIOClientTransport {
+export interface HyperschemaClient {
+  call(path: string, input: any): Promise<any>;
+  on(path: string, cb: (x: any) => void): () => void;
+}
+
+export class SocketIOClientTransport implements HyperschemaClient {
   io: Socket;
   constructor(private url: string) {
     this.io = io(this.url);

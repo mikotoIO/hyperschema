@@ -74,9 +74,9 @@ export function buildHyperschema(schema: any) {
         param: [computeType(type._def.type)],
       };
     }
-    if (type instanceof z.ZodOptional) {
+    if (type instanceof z.ZodNullable) {
       return {
-        type: 'optional',
+        type: 'nullable',
         param: [computeType(type._def.innerType)],
       };
     }
