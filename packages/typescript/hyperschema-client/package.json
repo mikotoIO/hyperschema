@@ -1,5 +1,5 @@
 {
-  "name": "hyperschema-client",
+  "name": "@hyperschema/client",
   "version": "0.0.1",
   "license": "MIT",
   "packageManager": "yarn@3.4.1",
