@@ -1,0 +1,22 @@
+name: Publish @hyperschema/client to NPM
+on:
+  push:
+    paths:
+      - packages/typescript/hyperschema-client/**
+    branches: ['master']
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - run: yarn install
+      - run: yarn build
+        working-directory: ./packages/typescript/hyperschema-client
+      - uses: JS-DevTools/npm-publish@v1
+        with:
+          token: ${{ secrets.NPM_TOKEN }}
+          package: ./packages/typescript/hyperschema-client/package.json

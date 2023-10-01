@@ -1,1 +1,1 @@
-# hyperschema-client
+# @hyperschema/client
