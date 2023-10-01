@@ -11,5 +11,8 @@
   },
   "scripts": {
     "build": "tsc --build"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

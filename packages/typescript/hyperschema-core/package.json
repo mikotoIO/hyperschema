@@ -17,5 +17,8 @@
     "prettier": "^3.0.3",
     "socket.io": "^4.7.2",
     "zod": "*"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
