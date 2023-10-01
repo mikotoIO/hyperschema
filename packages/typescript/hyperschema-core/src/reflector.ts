@@ -80,6 +80,12 @@ export function buildHyperschema(schema: any) {
         param: [computeType(type._def.innerType)],
       };
     }
+    if (
+      type instanceof z.ZodEffects &&
+      type._def.effect.type === 'preprocess'
+    ) {
+      return computeType(type._def.schema);
+    }
     return 'unknown';
   };
 

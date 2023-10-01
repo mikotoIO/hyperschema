@@ -1,5 +1,11 @@
-import { HyperRPC } from '@hyperschema/core';
+import { HyperRPC, hsDate } from '@hyperschema/core';
 import { z } from 'zod';
+
+export const Calendar = z.object({
+  name: z.string(),
+  date: hsDate(),
+});
+type Calendar = z.infer<typeof Calendar>;
 
 export const Pet = z.object({
   name: z.string(),
@@ -41,6 +47,12 @@ export const MainService = h
   .service({
     child: ChildService,
 
+    calendar: h.fn({}, Calendar).do(async () => {
+      return {
+        name: 'test name',
+        date: new Date(),
+      };
+    }),
     add: h
       .fn({ x: z.number(), y: z.number() }, z.number())
       .do(async ({ x, y, $meta }) => {

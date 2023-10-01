@@ -2,6 +2,12 @@
 import { z } from "zod";
 import { HyperschemaClient, RootService } from "@hyperschema/client";
 
+export const Calendar = z.object({
+  name: z.string(),
+  date: z.string(),
+});
+export type Calendar = z.infer<typeof Calendar>;
+
 export const Pet = z.object({
   name: z.string(),
 });
@@ -32,6 +38,9 @@ export class MainService extends RootService {
   constructor(protected client: HyperschemaClient) {
     super();
     this.child = new ChildService(this.client);
+  }
+  calendar(input: {}): Promise<Calendar> {
+    return this.client.call("calendar", input);
   }
   add(input: { x: number; y: number }): Promise<number> {
     return this.client.call("add", input);
