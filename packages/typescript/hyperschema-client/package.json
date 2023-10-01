@@ -6,12 +6,10 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "dependencies": {
-    "socket.io-client": "^4.7.2"
+    "socket.io-client": "^4.7.2",
+    "zod": "*"
   },
   "scripts": {
     "build": "tsc --build"
-  },
-  "peerDependencies": {
-    "zod": "*"
   }
 }
