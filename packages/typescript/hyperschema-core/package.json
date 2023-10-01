@@ -9,6 +9,9 @@
     "@types/node": "^20.7.0",
     "typescript": "^5.2.2"
   },
+  "scripts": {
+    "build": "tsc --build"
+  },
   "peerDependencies": {
     "zod": "*"
   },
