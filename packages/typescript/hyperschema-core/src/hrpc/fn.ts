@@ -8,7 +8,7 @@ export type SchemaFn<
   I extends Record<string, ZodType>,
   O extends ZodType,
   C,
-> = (input: InferInput<I> & C) => Promise<z.infer<O>>;
+> = (input: InferInput<I> & C) => Promise<z.input<O>>;
 
 // actual defs
 export class FnBuilder<
@@ -30,7 +30,7 @@ export class FnBuilder<
     return this as any;
   }
 
-  do(fn: (input: M) => Promise<z.infer<O>>) {
+  do(fn: (input: M) => Promise<z.input<O>>) {
     return new HyperRPCFn(
       this.inputSchema,
       this.outputSchema,
@@ -56,12 +56,12 @@ export class HyperRPCFn<
     this.inputValidator = z.object(input);
   }
 
-  async call(ctx: C, args: unknown): Promise<z.infer<O>> {
+  async call(ctx: C, args: unknown): Promise<z.input<O>> {
     const parsedArgs = this.inputValidator.parse(args);
     const res = await this.middlewares.reduce(
       async (acc: any, fn) => await fn(await acc),
       Object.assign(parsedArgs, ctx),
     );
-    return await this.fn(res);
+    return this.output.parse(await this.fn(res));
   }
 }

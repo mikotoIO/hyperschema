@@ -34,9 +34,12 @@ export class HyperRPCService<Ctx = any> {
 }
 
 export class HyperRPC<Context = { $meta: MetaObject }> {
-  contextFn: () => Context | Promise<Context> = async () => ({}) as any;
+  contextFn: (base: { $meta: MetaObject }) => Context | Promise<Context> =
+    async () => ({}) as any;
 
-  context<T>(fn: () => T | Promise<T>): HyperRPC<Context & T> {
+  context<T>(
+    fn: (base: { $meta: MetaObject }) => T | Promise<T>,
+  ): HyperRPC<Context & T> {
     this.contextFn = fn as any;
     return this as any;
   }

@@ -3,11 +3,7 @@ import * as socketIO from 'socket.io';
 import { HyperRPCService, MetaObject } from '..';
 import { BaseError } from '../../errors';
 
-function setupServiceEvents(
-  socket: socketIO.Socket,
-  io: socketIO.Server,
-  service: HyperRPCService,
-) {
+function setupServiceEvents(socket: socketIO.Socket, service: HyperRPCService) {
   const cleanupFns: (() => void)[] = [];
 
   // setup service events
@@ -45,13 +41,14 @@ function processError(err: unknown) {
 
 export function hostHyperRPC(io: socketIO.Server, service: HyperRPCService) {
   io.use((socket, next) => {
+    const meta: MetaObject = {
+      connId: socket.id,
+      authToken: socket.handshake.auth.token,
+    };
+
     const context = service.hyperRPC
-      .contextFn()
+      .contextFn({ $meta: meta })
       .then(() => {
-        const meta: MetaObject = {
-          connId: socket.id,
-          authToken: socket.handshake.auth.token,
-        };
         context.$meta = meta;
         Object.keys(context).forEach((k) => {
           socket.data[k] = context[k];
@@ -81,7 +78,7 @@ export function hostHyperRPC(io: socketIO.Server, service: HyperRPCService) {
       },
     );
 
-    setupServiceEvents(socket, io, service);
+    setupServiceEvents(socket, service);
     socket.emit('ready');
   });
 }
