@@ -2628,6 +2628,8 @@ __metadata:
   resolution: "hyperschema-client@workspace:packages/typescript/hyperschema-client"
   dependencies:
     socket.io-client: ^4.7.2
+  peerDependencies:
+    zod: "*"
   languageName: unknown
   linkType: soft
 

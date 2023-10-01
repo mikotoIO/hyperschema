@@ -1,0 +1,22 @@
+name: Publish @hyperschema/core to NPM
+on:
+  push:
+    paths:
+      - packages/typescript/hyperschema-core/**
+    branches: ['master']
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+      - run: yarn install --frozen-lockfile
+      - run: yarn build
+        working-directory: ./packages/typescript/hyperschema-core
+      - uses: JS-DevTools/npm-publish@v1
+        with:
+          token: ${{ secrets.NPM_TOKEN }}
+          package: ./packages/typescript/hyperschema-core/package.json
