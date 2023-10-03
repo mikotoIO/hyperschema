@@ -19,6 +19,11 @@ function setupServiceEvents(socket: socketIO.Socket, service: HyperRPCService) {
     }
   });
 
+  // setup child service events
+  Object.values(service.subservices).forEach((childService) => {
+    setupServiceEvents(socket, childService);
+  });
+
   socket.on('disconnect', () => {
     cleanupFns.forEach((fn) => fn());
   });

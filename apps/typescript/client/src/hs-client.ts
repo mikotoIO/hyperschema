@@ -29,6 +29,10 @@ export class ChildService {
   add2(input: { x: number; y: number }): Promise<number> {
     return this.client.call("child/add2", input);
   }
+
+  onTick(cb: (data: number) => void): () => void {
+    return this.client.on("child/onTick", cb);
+  }
 }
 
 export class MainService extends RootService {
