@@ -626,6 +626,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@hyperschema/client@workspace:packages/typescript/hyperschema-client":
+  version: 0.0.0-use.local
+  resolution: "@hyperschema/client@workspace:packages/typescript/hyperschema-client"
+  dependencies:
+    socket.io-client: ^4.7.2
+    zod: "*"
+  languageName: unknown
+  linkType: soft
+
 "@hyperschema/core@*, @hyperschema/core@workspace:packages/typescript/hyperschema-core":
   version: 0.0.0-use.local
   resolution: "@hyperschema/core@workspace:packages/typescript/hyperschema-core"
@@ -635,7 +644,6 @@ __metadata:
     prettier: ^3.0.3
     socket.io: ^4.7.2
     typescript: ^5.2.2
-  peerDependencies:
     zod: "*"
   languageName: unknown
   linkType: soft
@@ -2622,16 +2630,6 @@ __metadata:
   checksum: 9c7a74a2827f9294c009266c82031030eae811ca87b0da3dceb8d6071b9bde22c9f3daef0469c3c533cc67a97d8a167cd9fc0389350e5f415f61a79b171ded16
   languageName: node
   linkType: hard
-
-"hyperschema-client@workspace:packages/typescript/hyperschema-client":
-  version: 0.0.0-use.local
-  resolution: "hyperschema-client@workspace:packages/typescript/hyperschema-client"
-  dependencies:
-    socket.io-client: ^4.7.2
-  peerDependencies:
-    zod: "*"
-  languageName: unknown
-  linkType: soft
 
 "hyperschema@workspace:.":
   version: 0.0.0-use.local
@@ -4623,7 +4621,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"zod@npm:^3.22.2":
+"zod@npm:*, zod@npm:^3.22.2":
   version: 3.22.2
   resolution: "zod@npm:3.22.2"
   checksum: 231e2180c8eabb56e88680d80baff5cf6cbe6d64df3c44c50ebe52f73081ecd0229b1c7215b9552537f537a36d9e36afac2737ddd86dc14e3519bdbc777e82b9

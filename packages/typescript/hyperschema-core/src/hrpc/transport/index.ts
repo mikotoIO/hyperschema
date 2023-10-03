@@ -48,10 +48,10 @@ export function hostHyperRPC(io: socketIO.Server, service: HyperRPCService) {
 
     const context = service.hyperRPC
       .contextFn({ $meta: meta })
-      .then(() => {
-        context.$meta = meta;
-        Object.keys(context).forEach((k) => {
-          socket.data[k] = context[k];
+      .then((res: any) => {
+        Object.keys(res).forEach((k) => {
+          socket.data.$meta = meta;
+          socket.data[k] = res[k];
         });
         next();
       })

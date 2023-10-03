@@ -22,7 +22,9 @@ export const Person = z.object({
 type Person = z.infer<typeof Person>;
 
 // rpc code
-const h = new HyperRPC().context(async () => ({}));
+const h = new HyperRPC().context(async () => ({
+  test: 'teststring',
+}));
 
 export const ChildService = h.service({
   add2: h
@@ -55,8 +57,8 @@ export const MainService = h
     }),
     add: h
       .fn({ x: z.number(), y: z.number() }, z.number())
-      .do(async ({ x, y, $meta }) => {
-        console.log($meta);
+      .do(async ({ x, y, $meta, test }) => {
+        console.log(`middleware data: ${test}`);
         return x + y;
       }),
 
