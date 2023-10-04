@@ -46,14 +46,15 @@ export const ChildService = h.service({
 
   onTick: h.event(z.number()).emitter((emit, ctx) => {
     console.log('are we ticking yet 2?');
-    // console.log(`setting up for ${ctx.$meta.connId}...}`);
-    // const interval = setInterval(() => {
-    //   emit(Math.random());
-    // }, 1000);
-    // return () => {
-    //   console.log(`cleaning up for ${ctx.$meta.connId}.`);
-    //   clearInterval(interval);
-    // };
+    let i = 0;
+    const interval = setInterval(() => {
+      i++;
+      console.log('tock ' + i);
+      emit(i);
+    }, 1000);
+    return () => {
+      clearInterval(interval);
+    };
   }),
 });
 

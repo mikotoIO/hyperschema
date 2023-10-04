@@ -10,7 +10,6 @@ function setupServiceEvents(socket: socketIO.Socket, service: HyperRPCService) {
   Object.entries(service.events).forEach(([name, event]) => {
     if (event.emitterSetup) {
       const eventPath = service.path === '' ? name : `${service.path}/${name}`;
-      console.log(eventPath);
       const cleanup = event.emitterSetup((x) => {
         socket.emit(eventPath, event.eventType.parse(x));
       }, socket.data);

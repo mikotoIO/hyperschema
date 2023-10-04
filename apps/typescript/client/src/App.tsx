@@ -14,7 +14,7 @@ const mainService = new MainService(
 );
 (globalThis as any).client = mainService;
 
-mainService.onTick((x) => {
+mainService.child.onTick((x) => {
   console.log(`ticking ${x}`);
 });
 
