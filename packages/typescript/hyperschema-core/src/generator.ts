@@ -98,7 +98,7 @@ function generateService(obj: { name: string; service: HSService }) {
   return `export class ${obj.name} ${isRoot ? 'extends RootService' : ''} {
     readonly PATH = '${obj.service.path}';
     ${obj.service.subservices
-      .map((x) => `readonly ${x.name} = new ${x.service}(this.client);`)
+      .map((x) => `readonly ${x.name}: ${x.service};`)
       .join('\n')}
 
     constructor(protected client: HyperschemaClient) {
