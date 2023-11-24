@@ -1,6 +1,6 @@
 # @hyperschema/core
 
-The core Node.JS (TypeScript) server library for Hyperschema, used by server and code generation.
+The core Node.JS (TypeScript) server library for Hyperschema, used for server and code generation.
 
 ## Installation
 
