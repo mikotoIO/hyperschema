@@ -57,6 +57,7 @@
         "fields": [
           {"name": "id", "type": "string"},
           {"name": "name", "type": "string"},
+          {"name": "type", "type": "string"},
           {"name": "icon", "type": {"type": "nullable", "param": ["string"]}},
           {"name": "channels", "type": {"type": "array", "param": ["Channel"]}},
           {"name": "roles", "type": {"type": "array", "param": ["Role"]}},
@@ -111,7 +112,17 @@
         ]
       }
     },
-    {"name": "Relations", "type": {"kind": "struct", "fields": []}},
+    {
+      "name": "Relation",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {"name": "id", "type": "string"},
+          {"name": "relation", "type": {"type": "nullable", "param": ["User"]}},
+          {"name": "space", "type": {"type": "nullable", "param": ["Space"]}}
+        ]
+      }
+    },
     {
       "name": "Document",
       "type": {
@@ -236,9 +247,12 @@
           {"name": "users", "service": "UserService"},
           {"name": "messages", "service": "MessageService"},
           {"name": "roles", "service": "RoleService"},
-          {"name": "voice", "service": "VoiceService"}
+          {"name": "voice", "service": "VoiceService"},
+          {"name": "relations", "service": "RelationService"}
         ],
-        "functions": [],
+        "functions": [
+          {"name": "ping", "fn": {"input": [], "output": "string"}}
+        ],
         "events": []
       }
     },
@@ -423,6 +437,17 @@
           },
           {
             "name": "edit",
+            "fn": {
+              "input": [
+                {"name": "channelId", "type": "string"},
+                {"name": "messageId", "type": "string"},
+                {"name": "content", "type": "string"}
+              ],
+              "output": "Message"
+            }
+          },
+          {
+            "name": "editUncommitted",
             "fn": {
               "input": [
                 {"name": "channelId", "type": "string"},
@@ -647,6 +672,37 @@
             "fn": {
               "input": [{"name": "channelId", "type": "string"}],
               "output": "VoiceToken"
+            }
+          }
+        ],
+        "events": []
+      }
+    },
+    {
+      "name": "RelationService",
+      "service": {
+        "path": "relations",
+        "subservices": [],
+        "functions": [
+          {
+            "name": "get",
+            "fn": {
+              "input": [{"name": "relationId", "type": "string"}],
+              "output": "Relation"
+            }
+          },
+          {
+            "name": "list",
+            "fn": {
+              "input": [],
+              "output": {"type": "array", "param": ["Relation"]}
+            }
+          },
+          {
+            "name": "openDm",
+            "fn": {
+              "input": [{"name": "relationId", "type": "string"}],
+              "output": "Relation"
             }
           }
         ],
