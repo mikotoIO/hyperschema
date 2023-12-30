@@ -8,6 +8,8 @@ export interface ServiceOptions {
 export interface HyperschemaClient {
   call(path: string, input: any): Promise<any>;
   on(path: string, cb: (x: any) => void): () => void;
+  disconnect(): void;
+
   onReady(cb: () => void): void;
   onConnect(cb: () => void): void;
   onDisconnect(cb: () => void): void;
@@ -50,6 +52,11 @@ export class SocketIOClientTransport implements HyperschemaClient {
     return () => {
       this.socket.off(path, cb);
     };
+  }
+
+  disconnect(): void {
+    // as soon as they disconnect, they become eligible for garbage collection
+    this.socket.disconnect();
   }
 
   onReady(cb: () => void): void {
