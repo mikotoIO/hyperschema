@@ -582,7 +582,9 @@ __metadata:
   resolution: "@hyperschema/client@workspace:packages/typescript/hyperschema-client"
   dependencies:
     socket.io-client: "npm:^4.7.2"
-    zod: "npm:*"
+    zod: "npm:^3.22.4"
+  peerDependencies:
+    zod: "*"
   languageName: unknown
   linkType: soft
 
@@ -595,7 +597,9 @@ __metadata:
     prettier: "npm:^3.0.3"
     socket.io: "npm:^4.7.2"
     typescript: "npm:^5.2.2"
-    zod: "npm:*"
+    zod: "npm:^3.22.4"
+  peerDependencies:
+    zod: "*"
   languageName: unknown
   linkType: soft
 
@@ -5087,7 +5091,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"zod@npm:*, zod@npm:^3.22.2":
+"zod@npm:^3.22.2, zod@npm:^3.22.4":
   version: 3.22.4
   resolution: "zod@npm:3.22.4"
   checksum: 73622ca36a916f785cf528fe612a884b3e0f183dbe6b33365a7d0fc92abdbedf7804c5e2bd8df0a278e1472106d46674281397a3dd800fa9031dc3429758c6ac
