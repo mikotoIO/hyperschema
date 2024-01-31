@@ -29,15 +29,11 @@ export class ChildService {
   add2(input: { x: number; y: number }): Promise<number> {
     return this.client.call("child/add2", input);
   }
-
-  onTick(cb: (data: number) => void): () => void {
-    return this.client.on("child/onTick", cb);
-  }
 }
 
 export class MainService extends RootService {
   readonly PATH = "";
-  readonly child = new ChildService(this.client);
+  readonly child: ChildService;
 
   constructor(protected client: HyperschemaClient) {
     super();
@@ -51,9 +47,5 @@ export class MainService extends RootService {
   }
   hello(input: { person: Person }): Promise<string> {
     return this.client.call("hello", input);
-  }
-
-  onTick(cb: (data: number) => void): () => void {
-    return this.client.on("onTick", cb);
   }
 }

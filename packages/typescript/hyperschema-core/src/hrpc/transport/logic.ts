@@ -1,3 +1,4 @@
+import { HyperRPCService } from '..';
 import { BaseError } from '../../errors';
 
 export function processError(err: unknown) {
@@ -13,4 +14,8 @@ export function processError(err: unknown) {
     };
   }
   return { message: 'Unknown Error' };
+}
+
+export interface AbstractTransportEngine {
+  mount(service: HyperRPCService<any>): void;
 }

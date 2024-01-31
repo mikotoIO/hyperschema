@@ -44,18 +44,18 @@ export const ChildService = h.service({
       return x + y;
     }),
 
-  onTick: h.event(z.number()).emitter((emit, ctx) => {
-    console.log('are we ticking yet 2?');
-    let i = 0;
-    const interval = setInterval(() => {
-      i++;
-      console.log('tock ' + i);
-      emit(i);
-    }, 1000);
-    return () => {
-      clearInterval(interval);
-    };
-  }),
+  // onTick: h.event(z.number()).emitter((emit, ctx) => {
+  //   console.log('are we ticking yet 2?');
+  //   let i = 0;
+  //   const interval = setInterval(() => {
+  //     i++;
+  //     console.log('tock ' + i);
+  //     emit(i);
+  //   }, 1000);
+  //   return () => {
+  //     clearInterval(interval);
+  //   };
+  // }),
 });
 
 export const MainService = h
@@ -77,18 +77,6 @@ export const MainService = h
 
     hello: h.fn({ person: Person }, z.string()).do(async ({ person }) => {
       return `Hello, ${person.name}!`;
-    }),
-
-    onTick: h.event(z.number()).emitter((emit, ctx) => {
-      console.log('are we ticking yet?');
-      // console.log(`setting up for ${ctx.$meta.connId}...}`);
-      // const interval = setInterval(() => {
-      //   emit(Math.random());
-      // }, 1000);
-      // return () => {
-      //   console.log(`cleaning up for ${ctx.$meta.connId}.`);
-      //   clearInterval(interval);
-      // };
     }),
   })
   .root();

@@ -14,9 +14,9 @@ const mainService = new MainService(
 );
 (globalThis as any).client = mainService;
 
-mainService.child.onTick((x) => {
-  console.log(`ticking ${x}`);
-});
+// mainService.child.onTick((x) => {
+//   console.log(`ticking ${x}`);
+// });
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -33,6 +33,7 @@ function App() {
       <div className="card">
         <button
           onClick={async () => {
+            console.log('click');
             const res = await mainService.add({ x: 1, y: 2 });
             console.log(res);
           }}
