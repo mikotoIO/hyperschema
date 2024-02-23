@@ -46,7 +46,8 @@ export class SocketIOTransport implements AbstractTransportEngine {
       this.run = async () => {};
     } else {
       const app = fastify();
-      app.get('/', async () => {
+      app.get('/', async (_, reply) => {
+        reply.header('Access-Control-Allow-Origin', '*');
         return options.meta ?? { hello: 'world' };
       });
 
