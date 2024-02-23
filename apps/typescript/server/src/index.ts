@@ -34,8 +34,8 @@ const hss = new HyperschemaServer({
   console.log('generating hyperschema...');
   await hss.start({ generate: true });
   console.log('generated hyperschema!');
-  await app.listen({
-    port: 3100,
+  app.listen({ port: 3100 }, () => {
+    console.log('listening on port 3100');
   });
 })().then(() => {
   console.log('server started');
