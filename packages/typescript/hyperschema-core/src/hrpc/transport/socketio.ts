@@ -1,3 +1,4 @@
+import fastify from 'fastify';
 import * as socketIO from 'socket.io';
 
 import { HyperRPCService, MetaObject } from '..';
@@ -29,10 +30,34 @@ function setupServiceEvents(socket: socketIO.Socket, service: HyperRPCService) {
   });
 }
 
+interface SocketIOTransportOptions {
+  io?: socketIO.Server;
+  port?: number;
+  meta?: any;
+}
+
 export class SocketIOTransport implements AbstractTransportEngine {
   io: socketIO.Server;
-  constructor(io: socketIO.Server) {
-    this.io = io;
+  run: () => Promise<void>;
+
+  constructor(options: SocketIOTransportOptions) {
+    if (options.io) {
+      this.io = options.io;
+      this.run = async () => {};
+    } else {
+      const app = fastify();
+      app.get('/', async () => {
+        return options.meta ?? { hello: 'world' };
+      });
+
+      this.io = new socketIO.Server(app.server, {
+        cors: { origin: '*' },
+      });
+
+      this.run = async () => {
+        await app.listen({ port: options.port ?? 3510 });
+      };
+    }
   }
 
   mount(service: HyperRPCService): void {

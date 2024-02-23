@@ -19,11 +19,9 @@ const hss = new HyperschemaServer({
   system: hs,
   root: hs.MainService,
   transports: [
-    new SocketIOTransport(
-      new socketIO.Server(app.server, {
-        cors: { origin: '*' },
-      }),
-    ),
+    new SocketIOTransport({
+      port: 3100,
+    }),
   ],
   writers: [
     new TypeScriptWriter(path.join(__dirname, '../../client/src/hs-client.ts')),
@@ -34,9 +32,6 @@ const hss = new HyperschemaServer({
   console.log('generating hyperschema...');
   await hss.start({ generate: true });
   console.log('generated hyperschema!');
-  app.listen({ port: 3100 }, () => {
-    console.log('listening on port 3100');
-  });
 })().then(() => {
   console.log('server started');
 });

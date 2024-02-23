@@ -18,4 +18,5 @@ export function processError(err: unknown) {
 
 export interface AbstractTransportEngine {
   mount(service: HyperRPCService<any>): void;
+  run(): Promise<void>;
 }

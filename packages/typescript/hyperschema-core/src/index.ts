@@ -40,5 +40,7 @@ export class HyperschemaServer {
     if (options.generate) {
       await Promise.all(this.writers.map((w) => w.write(this.system)));
     }
+
+    await Promise.all(this.transports.map((t) => t.run()));
   }
 }
