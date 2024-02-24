@@ -1,3 +1,4 @@
+import cors from '@fastify/cors';
 import fastify from 'fastify';
 import * as socketIO from 'socket.io';
 
@@ -46,8 +47,10 @@ export class SocketIOTransport implements AbstractTransportEngine {
       this.run = async () => {};
     } else {
       const app = fastify();
-      app.get('/', async (_, reply) => {
-        reply.header('Access-Control-Allow-Origin', '*');
+      app.register(cors, {
+        origin: '*',
+      });
+      app.get('/', async () => {
         return options.meta ?? { hello: 'world' };
       });
 

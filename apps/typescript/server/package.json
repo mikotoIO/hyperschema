@@ -7,7 +7,7 @@
   },
   "dependencies": {
     "@hyperschema/core": "*",
-    "fastify": "^4.23.2",
+    "fastify": "^4.26.1",
     "socket.io": "^4.7.2",
     "yaml": "^2.3.2",
     "zod": "^3.22.2"
