@@ -59,7 +59,10 @@ export class SocketIOTransport implements AbstractTransportEngine {
       });
 
       this.run = async () => {
-        await app.listen({ port: options.port ?? 3510 });
+        await app.listen({
+          host: '0.0.0.0',
+          port: options.port ?? 3510,
+        });
       };
     }
   }
